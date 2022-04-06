@@ -1,4 +1,17 @@
-import "./ReviewList.css";
+import styled from "styled-components";
+
+const ReviewItem = styled.div`
+  display: flex;
+  padding: 10px;
+  align-items: center;
+`;
+
+const ReviewItemImg = styled.img`
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  margin-right: 20px;
+`;
 
 function formatDate(value) {
   const date = new Date(value);
@@ -7,15 +20,15 @@ function formatDate(value) {
 
 function ReviewListItem({ item }) {
   return (
-    <div className="ReviewListItem">
-      <img className="ReviewListItem-img" src={item.imgUrl} alt={item.title} />
+    <ReviewItem>
+      <ReviewItemImg src={item.imgUrl} alt={item.title} />
       <div>
         <h1>{item.title}</h1>
         <p>{item.rating}</p>
         <p>{formatDate(item.createdAt)}</p>
         <p>{item.content}</p>
       </div>
-    </div>
+    </ReviewItem>
   );
 }
 
