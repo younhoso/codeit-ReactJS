@@ -1,10 +1,10 @@
 export async function getReviews({
   order = "createdAt",
   offset = 0,
-  linit = 6,
+  limit = 6,
 }) {
-  const query = `order=${order}&offset=${offset}&linit=${linit}`;
-  const res = await fetch(`https://learn.codeit.kr/2021/film-reviews?${query}`);
+  const query = `order=${order}&offset=${offset}&limit=${limit}`;
+  const res = await fetch(`https://learn.codeit.kr/api/film-reviews?${query}`);
   const body = await res.json();
   return body;
 }
