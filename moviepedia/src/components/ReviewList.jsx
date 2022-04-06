@@ -37,11 +37,10 @@ function ReviewListItem({ item, onDelete }) {
 function ReviewList({ items, onDelete }) {
   return (
     <ul>
-      {items.map((item, index) => {
+      {items.map((item) => {
         return (
-          <li key={index}>
+          <li key={item.id}>
             <ReviewListItem item={item} onDelete={onDelete} />
-            <input />
           </li>
         );
       })}
