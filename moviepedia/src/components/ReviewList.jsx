@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Rating from "./Rating"
 
 const ReviewItem = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ function ReviewListItem({ item, onDelete }) {
       <ReviewItemImg src={item.imgUrl} alt={item.title} />
       <div>
         <h1>{item.title}</h1>
-        <p>{item.rating}</p>
+        <Rating value={item.rating}/>
         <p>{formatDate(item.createdAt)}</p>
         <p>{item.content}</p>
         <button onClick={handleDeleteClick}>삭제</button>

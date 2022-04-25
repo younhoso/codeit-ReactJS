@@ -11,7 +11,7 @@ function FileInput({ name, value, onChange }) {
     const inputNode = inputRef.current;
     if(!inputNode) return;
     inputNode.value = '';
-    onChange(name, value)
+    onChange(name, null)
   }
 
   return (
