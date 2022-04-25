@@ -1,31 +1,18 @@
-import styled from "styled-components";
+import './Rating.css'
 
 const RATINGS = [1,2,3,4,5];
 
-const Span = styled.span`
-	color: ${props => props.selected ? 'yellowgreen' : 'slategray'};
-`
+function Star({ selected = false }){
+	const className = `Rating-star ${selected ? 'selected' : ''}`;
+	return <span className={className}>★</span>;
+}
 
-function Star({value = 0, onSelect}){
+function Rating({value = 0}) {
 	return (
 		<div>
 			{RATINGS.map((rating) => (
-				<Span 
-					key={rating} 
-					selected={value >= rating} 
-					rating={rating} 
-					onSelect={onSelect}>
-						*
-					</Span>
+				<Star key={rating} selected={value >= rating} />
 			))}
-		</div>
-	)
-}
-
-function Rating({value}) {
-	return (
-		<div>
-			<Star value={value}/>
 		</div>
 	)
 }
