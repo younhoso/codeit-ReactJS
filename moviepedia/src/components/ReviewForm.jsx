@@ -1,14 +1,20 @@
 import { useState } from "react";
+import { createReview } from "../api";
 import FileInput from "./FileInput";
 import RatingInput from './RatingInput';
 
+const INITIAL_VALUES = {
+  title: "",
+  rating: 0,
+  content: "",
+  imgFile: null,
+}
+
+
 function ReviewForm() {
-  const [values, setValues] = useState({
-    title: "",
-    rating: 0,
-    content: "",
-    imgFile: null,
-  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittingError, setSubmittingError] = useState(null);
+  const [values, setValues] = useState(INITIAL_VALUES);
 
   const handleChange = (name, value) => {
     setValues((prevValues) => ({
@@ -22,9 +28,23 @@ function ReviewForm() {
     handleChange(name, value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(values);
+    const formData = new FormData();
+    formData.append('title', values.title)
+    formData.append('rating', values.rating)
+    formData.append('content', values.content)
+    formData.append('imgFile', values.imgFile)
+    try{
+      setSubmittingError(null);
+      setIsSubmitting(true);
+      await createReview(formData);
+    } catch(error) {
+      setSubmittingError(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+    setValues(INITIAL_VALUES);
   };
 
   return (
@@ -50,7 +70,8 @@ function ReviewForm() {
         value={values.content}
         onChange={handleInputChange}
       />
-      <button type="submit">전송</button>
+      <button type="submit" disabled={isSubmitting} >전송</button>
+      {submittingError?.message && <div>{submittingError.message}</div>}
     </form>
   );
 }
