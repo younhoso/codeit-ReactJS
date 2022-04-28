@@ -25,3 +25,16 @@ export async function createReview(formData) {
   const body = await res.json();
   return body;
 }
+
+export async function updateReview(id, formData) {
+  const res = await fetch(`${BASE_URL}/film-reviews/${id}`, {
+    method: 'PUT',
+    body: formData
+  });
+  if (!res.ok) {
+    throw new Error("리뷰를 수정하는데 실패했습니다.");
+  }
+  const body = await res.json();
+  return body;
+}
+
