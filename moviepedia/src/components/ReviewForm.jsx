@@ -11,10 +11,10 @@ const INITIAL_VALUES = {
 }
 
 
-function ReviewForm({ onSubmitSuccess }) {
+function ReviewForm({ initalValues = INITIAL_VALUES, initialPreview, onSubmitSuccess, onCancel }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittingError, setSubmittingError] = useState(null);
-  const [values, setValues] = useState(INITIAL_VALUES);
+  const [values, setValues] = useState(initalValues);
 
   const handleChange = (name, value) => {
     setValues((prevValues) => ({
@@ -56,6 +56,7 @@ function ReviewForm({ onSubmitSuccess }) {
       <FileInput
         name="imgFile"
         value={values.imgFile}
+        initialPreview={initialPreview}
         onChange={handleChange}
       />
       <input
@@ -74,7 +75,8 @@ function ReviewForm({ onSubmitSuccess }) {
         value={values.content}
         onChange={handleInputChange}
       />
-      <button type="submit" disabled={isSubmitting} >전송</button>
+      {onCancel && <button onClick={onCancel}>취소</button>}
+      <button type="submit" disabled={isSubmitting}>전송</button>
       {submittingError?.message && <div>{submittingError.message}</div>}
     </form>
   );
